@@ -14,12 +14,26 @@ $pat   = [int]$parts[2]
 $dirty = git status --porcelain 2>&1
 if ($dirty) {
     Write-Host ""
-    Write-Host "  Uncommitted changes detected - commit or stash them first." -ForegroundColor Red
+    Write-Host "  Uncommitted changes detected:" -ForegroundColor Yellow
     Write-Host ""
     git status --short
     Write-Host ""
-    Read-Host "  Press Enter to exit"
-    exit 1
+    $commitNow = Read-Host "  Commit these changes now before releasing? (Y/N)"
+    if ($commitNow.Trim().ToUpper() -ne "Y") {
+        Write-Host "  Cancelled. Commit or stash your changes first." -ForegroundColor Red
+        Write-Host ""
+        exit 1
+    }
+    $commitMsg = Read-Host "  Commit message"
+    if (-not $commitMsg.Trim()) {
+        Write-Host "  Commit message cannot be empty." -ForegroundColor Red
+        exit 1
+    }
+    git add -A
+    git commit -m $commitMsg.Trim()
+    if ($LASTEXITCODE -ne 0) { Write-Host "  git commit failed." -ForegroundColor Red; exit 1 }
+    Write-Host "  Changes committed." -ForegroundColor Green
+    Write-Host ""
 }
 
 # -- Prompt: bump type ---------------------------------------------------

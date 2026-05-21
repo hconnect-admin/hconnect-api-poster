@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,6 +38,26 @@
       --success: #10b981;
       --warning: #f59e0b;
       --error: #ef4444;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f0f2f5;
+      --bg-secondary: #ffffff;
+      --bg-sidebar: #e8eaf0;
+      --bg-panel: #f5f6fa;
+      --bg-hover: #dde1ea;
+      --accent-red: #d63650;
+      --accent-green: #1e9070;
+      --accent-blue: #2563eb;
+      --accent-orange: #ea6c00;
+      --accent-purple: #7c3aed;
+      --text-primary: #1f2937;
+      --text-secondary: #4b5563;
+      --text-muted: #9ca3af;
+      --border-color: #d1d5db;
+      --success: #059669;
+      --warning: #d97706;
+      --error: #dc2626;
     }
 
     body {
@@ -125,6 +145,29 @@
     }
 
     .btn-settings:hover {
+      background: var(--bg-hover);
+      border-color: var(--accent-green);
+    }
+
+    .btn-theme-toggle {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+    }
+
+    .btn-theme-toggle:hover {
       background: var(--bg-hover);
       border-color: var(--accent-green);
     }
@@ -2337,6 +2380,7 @@
         </select>
         <button class="btn-settings" id="btnOpenSettings">⚙ Manage Environments</button>
         <button class="btn-settings" id="btnOpenApiDocs">📖 API Docs</button>
+        <button class="btn-theme-toggle" id="btnThemeToggle" title="Toggle light/dark theme">🌙</button>
       </div>
     </div>
 
@@ -7633,6 +7677,12 @@
       return new Promise(resolve => setTimeout(resolve, ms));
     }
 
+    // Theme initialisation — runs immediately to avoid flash of wrong theme
+    (function () {
+      const saved = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+    })();
+
     // Event listeners
     document.addEventListener('DOMContentLoaded', async () => {
       // Check if running from file:// instead of localhost server
@@ -7728,6 +7778,23 @@
       document.getElementById('btnOpenApiDocs').addEventListener('click', () => {
         openApiDocsModal();
       });
+
+      // Theme toggle
+      (function () {
+        const btn = document.getElementById('btnThemeToggle');
+        function applyTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+          btn.textContent = theme === 'dark' ? '🌙' : '☀️';
+          btn.title = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
+          localStorage.setItem('theme', theme);
+        }
+        // Sync button icon with current theme
+        applyTheme(localStorage.getItem('theme') || 'dark');
+        btn.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme');
+          applyTheme(current === 'dark' ? 'light' : 'dark');
+        });
+      })();
       
       document.getElementById('btnCloseApiDocs').addEventListener('click', () => {
         document.getElementById('apiDocsModal').classList.remove('active');
