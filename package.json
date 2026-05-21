@@ -1,0 +1,38 @@
+{
+  "name": "ohip-client",
+  "version": "1.0.1",
+  "description": "Postman-style API client for Oracle Hospitality OHIP REST APIs",
+  "type": "commonjs",
+  "main": "server.js",
+  "bin": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build": "node -e \"const v=require('./package.json').version;const {execSync}=require('child_process');execSync('pkg . --compress GZip --output dist/hconnect-api-'+v+'.exe',{stdio:'inherit'})\""
+  },
+  "pkg": {
+    "targets": ["node22-win-x64"],
+
+    "assets": [
+      "public/**/*",
+      "node_modules/better-sqlite3/build/Release/*.node"
+    ]
+  },
+  "keywords": [
+    "ohip",
+    "api-client",
+    "postman",
+    "oracle-hospitality"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^12.10.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@yao-pkg/pkg": "^6.19.0",
+    "nodemon": "^3.0.0"
+  }
+}
