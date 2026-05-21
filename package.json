@@ -17,7 +17,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "davidganly",
+        "owner": "hconnect-admin",
         "repo": "hconnect-api-poster",
         "releaseType": "release"
       }
