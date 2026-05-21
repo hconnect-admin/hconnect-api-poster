@@ -1,27 +1,53 @@
 {
-  "name": "ohip-client",
+  "name": "hconnect-api-poster",
   "version": "1.0.1",
-  "description": "Postman-style API client for Oracle Hospitality OHIP REST APIs",
+  "description": "API test client for hconnect / Oracle Hospitality REST APIs",
   "type": "commonjs",
-  "main": "server.js",
-  "bin": "server.js",
+  "main": "main.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "build": "node -e \"const v=require('./package.json').version;const {execSync}=require('child_process');execSync('pkg . --compress GZip --output dist/hconnect-api-'+v+'.exe',{stdio:'inherit'})\""
+    "start": "electron .",
+    "dev": "electron . --inspect",
+    "build": "electron-builder --win",
+    "rebuild": "electron-rebuild -f -w better-sqlite3",
+    "postinstall": "electron-rebuild -f -w better-sqlite3"
   },
-  "pkg": {
-    "targets": ["node22-win-x64"],
-
-    "assets": [
-      "public/**/*",
-      "node_modules/better-sqlite3/build/Release/*.node"
+  "build": {
+    "appId": "com.hconnect.api-poster",
+    "productName": "hconnect API Client",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "davidganly",
+        "repo": "hconnect-api-poster",
+        "releaseType": "release"
+      }
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "hconnect API Client"
+    },
+    "files": [
+      "**/*",
+      "!dist/**",
+      "!.github/**",
+      "!*.bat",
+      "!*.md",
+      "!.gitignore"
+    ],
+    "asarUnpack": [
+      "node_modules/better-sqlite3/**/*",
+      "assets/**/*"
     ]
   },
   "keywords": [
     "ohip",
     "api-client",
-    "postman",
     "oracle-hospitality"
   ],
   "author": "",
@@ -29,10 +55,14 @@
   "dependencies": {
     "better-sqlite3": "^12.10.0",
     "cors": "^2.8.5",
+    "electron-updater": "^6.3.0",
     "express": "^4.18.2"
   },
   "devDependencies": {
-    "@yao-pkg/pkg": "^6.19.0",
+    "@electron/rebuild": "^3.6.0",
+    "electron": "^36.0.0",
+    "electron-builder": "^25.0.0",
     "nodemon": "^3.0.0"
   }
 }
+

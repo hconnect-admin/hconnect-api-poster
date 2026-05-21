@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Build output
+dist/
+
 # Database files (contains sensitive data)
 *.db
 *.db-shm

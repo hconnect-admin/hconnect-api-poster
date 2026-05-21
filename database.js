@@ -1,9 +1,13 @@
 const Database = require('better-sqlite3');
 const path = require('path');
 
-// When running as a pkg-packaged exe, __dirname is inside the virtual FS (read-only).
-// Use the directory that contains the running executable for writable files instead.
-const dataDir = process.pkg ? path.dirname(process.execPath) : __dirname;
+// Resolve a writable data directory:
+//   1. APP_DATA_DIR  — set by main.js to app.getPath('userData') when running in Electron
+//   2. process.pkg   — set by pkg when running as a packaged exe (read-only virtual FS)
+//   3. __dirname     — development / node server.js
+const dataDir =
+  process.env.APP_DATA_DIR ||
+  (process.pkg ? path.dirname(process.execPath) : __dirname);
 
 // Initialize SQLite database
 const db = new Database(path.join(dataDir, 'hconnect-api-poster.db'), { 

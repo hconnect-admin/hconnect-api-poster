@@ -650,10 +650,21 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 hconnect API Client server running on http://localhost:${PORT}`);
-  console.log(`📁 Serving files from: ${path.join(__dirname, 'public')}`);
-  console.log(`🔄 Proxy endpoint available at: http://localhost:${PORT}/proxy`);
-  console.log(`📖 API Docs endpoints available at: http://localhost:${PORT}/api/list-specs and /api/load-spec`);
-});
+// Start the server — called directly when run with `node server.js`, or by main.js in Electron
+function start(port, callback) {
+  const listenPort = port || PORT;
+  const httpServer = app.listen(listenPort, () => {
+    console.log(`🚀 hconnect API Client server running on http://localhost:${listenPort}`);
+    console.log(`📁 Serving files from: ${path.join(__dirname, 'public')}`);
+    console.log(`🔄 Proxy endpoint available at: http://localhost:${listenPort}/proxy`);
+    console.log(`📖 API Docs endpoints available at: http://localhost:${listenPort}/api/list-specs and /api/load-spec`);
+    if (callback) callback();
+  });
+  return httpServer;
+}
+
+if (require.main === module) {
+  start();
+}
+
+module.exports = { app, start };
