@@ -1,6 +1,6 @@
 {
   "name": "hconnect-api-poster",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "API test client for hconnect / Oracle Hospitality REST APIs",
   "type": "commonjs",
   "main": "main.js",
