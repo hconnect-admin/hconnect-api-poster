@@ -138,15 +138,31 @@
       border: 1px solid var(--border-color);
       color: var(--text-primary);
       padding: 6px 12px;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
       font-size: 13px;
+      font-weight: 500;
       transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .btn-settings svg {
+      flex-shrink: 0;
+      opacity: 0.85;
     }
 
     .btn-settings:hover {
       background: var(--bg-hover);
       border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    .btn-settings:hover svg {
+      opacity: 1;
     }
 
     .btn-theme-toggle {
@@ -277,7 +293,10 @@
       transform: translateY(-50%);
       color: var(--text-muted);
       pointer-events: none;
-      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
     }
 
     .collection-list {
@@ -469,6 +488,7 @@
     .method-PUT { background: #f9731644; color: #f97316; }
     .method-DELETE { background: #ef444444; color: #ef4444; }
     .method-PATCH { background: #a855f744; color: #a855f7; }
+    .method-HEAD { background: #06b6d444; color: #06b6d4; }
 
     .request-name {
       font-size: 13px;
@@ -1476,8 +1496,16 @@
     }
 
     .form-section-icon {
-      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent-purple) 0%, #7c3aed 100%);
+      color: white;
+      border-radius: 8px;
       flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(168, 85, 247, 0.25);
     }
 
     .form-section-title {
@@ -1602,6 +1630,10 @@
       cursor: pointer;
       border: none;
       transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      line-height: 1;
     }
 
     .btn-primary {
@@ -1681,13 +1713,17 @@
     }
 
     .btn-small {
-      padding: 4px 12px;
+      padding: 4px 10px;
       font-size: 12px;
       border-radius: 4px;
       border: none;
       cursor: pointer;
       font-weight: 500;
       transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      line-height: 1;
     }
 
     .btn-small.btn-edit {
@@ -2378,9 +2414,17 @@
         <select id="hotelSelect">
           <option value="">Select hotel...</option>
         </select>
-        <button class="btn-settings" id="btnOpenSettings">⚙ Manage Environments</button>
-        <button class="btn-settings" id="btnOpenApiDocs">📖 API Docs</button>
-        <button class="btn-theme-toggle" id="btnThemeToggle" title="Toggle light/dark theme">🌙</button>
+        <button class="btn-settings" id="btnOpenSettings">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+          Environments
+        </button>
+        <button class="btn-settings" id="btnOpenApiDocs">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          API Docs
+        </button>
+        <button class="btn-theme-toggle" id="btnThemeToggle" title="Toggle light/dark theme">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        </button>
       </div>
     </div>
 
@@ -2395,7 +2439,7 @@
             <button class="btn-add" id="btnAddCollection" title="Add or Import Collection">+</button>
           </div>
           <div class="search-container">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
             <input type="text" class="search-input" id="collectionSearch" placeholder="Search collections, folders, requests...">
           </div>
           <ul class="collection-list" id="collectionList"></ul>
@@ -2420,6 +2464,7 @@
             <div class="url-controls">
               <select class="method-select" id="methodSelect">
                 <option value="GET">GET</option>
+                <option value="HEAD">HEAD</option>
                 <option value="POST">POST</option>
                 <option value="PUT">PUT</option>
                 <option value="PATCH">PATCH</option>
@@ -2633,15 +2678,27 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
           <h3 style="font-size: 16px; color: var(--text-secondary);">Customers & Environments</h3>
           <div style="display: flex; gap: 8px;">
-            <button class="btn btn-secondary" id="btnImportData" title="Import Postman Collection or Environment">📁 Import</button>
-            <button class="btn btn-secondary" id="btnExportAll" title="Export All Data">💾 Export All</button>
-            <button class="btn btn-secondary" id="btnNewCustomer">+ New Customer</button>
-            <button class="btn btn-primary" id="btnNewEnvironment">+ New Environment</button>
+            <button class="btn btn-secondary" id="btnImportData" title="Import Postman Collection or Environment">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Import
+            </button>
+            <button class="btn btn-secondary" id="btnExportAll" title="Export All Data">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export All
+            </button>
+            <button class="btn btn-secondary" id="btnNewCustomer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+              New Customer
+            </button>
+            <button class="btn btn-primary" id="btnNewEnvironment">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              New Environment
+            </button>
           </div>
         </div>
         
         <div class="search-container" style="margin-bottom: 20px;">
-          <span class="search-icon">🔍</span>
+          <span class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
           <input type="text" class="search-input" id="environmentSearch" placeholder="Search environments by customer or name...">
         </div>
         
@@ -2796,7 +2853,9 @@
           <!-- Token Status Section -->
           <div class="form-section" id="tokenInfoSection" style="display: none;">
             <div class="form-section-header">
-              <span class="form-section-icon">🔑</span>
+              <span class="form-section-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
+              </span>
               <h3 class="form-section-title">OAuth Token Status</h3>
             </div>
             
@@ -2871,6 +2930,7 @@
             <label class="form-label">Method</label>
             <select class="form-input" id="requestMethod">
               <option value="GET">GET</option>
+              <option value="HEAD">HEAD</option>
               <option value="POST">POST</option>
               <option value="PUT">PUT</option>
               <option value="PATCH">PATCH</option>
@@ -2937,10 +2997,13 @@
         <div class="api-docs-sidebar">
           <h3 style="font-size: 14px; color: var(--text-secondary); margin-bottom: 16px;">OpenAPI Specifications</h3>
           <div style="margin-bottom: 16px;">
-            <button class="btn btn-secondary" id="btnConfigureApiDocs" style="width: 100%; font-size: 12px;">⚙ Configure Folder Path</button>
+            <button class="btn btn-secondary" id="btnConfigureApiDocs" style="width: 100%; font-size: 12px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+              Configure Folder Path
+            </button>
           </div>
           <div class="search-container">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
             <input type="text" class="search-input" id="apiDocsSearch" placeholder="Search API docs...">
           </div>
           <div id="apiFileList">
@@ -6799,7 +6862,7 @@
       if (state.environments.length === 0) {
         container.innerHTML = `
           <div class=\"empty-state\">
-            <div class=\"empty-state-icon\">🌍</div>
+            <div class=\"empty-state-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20\"/><path d=\"M2 12h20\"/></svg></div>
             <p>No environments configured yet.</p>
             <p style=\"font-size: 13px; margin-top: 8px;\">Click \"+ New Environment\" to get started.</p>
           </div>
@@ -6818,8 +6881,8 @@
         customerHeader.innerHTML = `
           <div class=\"customer-name\">${customer}</div>
           <div class=\"customer-controls\">
-            <button class=\"btn-small btn-edit\" data-customer=\"${customer}\">Rename</button>
-            <button class=\"btn-small btn-delete\" data-customer=\"${customer}\">Delete All</button>
+            <button class=\"btn-small btn-edit\" data-customer=\"${customer}\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z\"/><path d=\"m15 5 4 4\"/></svg> Rename</button>
+            <button class=\"btn-small btn-delete\" data-customer=\"${customer}\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"3 6 5 6 21 6\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/></svg> Delete All</button>
           </div>
         `;
         
@@ -6856,9 +6919,9 @@
               <div class=\"environment-url\">${env.baseUrl}</div>
             </div>
             <div class=\"environment-controls\">
-              <button class=\"btn-small btn-export\" data-env-id=\"${env.id}\" title=\"Export Environment\">💾</button>
-              <button class=\"btn-small btn-edit\" data-env-id=\"${env.id}\">Edit</button>
-              <button class=\"btn-small btn-delete\" data-env-id=\"${env.id}\">Delete</button>
+              <button class=\"btn-small btn-export\" data-env-id=\"${env.id}\" title=\"Export Environment\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"/></svg></button>
+              <button class=\"btn-small btn-edit\" data-env-id=\"${env.id}\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z\"/><path d=\"m15 5 4 4\"/></svg> Edit</button>
+              <button class=\"btn-small btn-delete\" data-env-id=\"${env.id}\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"3 6 5 6 21 6\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/></svg> Delete</button>
             </div>
           `;
           
@@ -7782,9 +7845,11 @@
       // Theme toggle
       (function () {
         const btn = document.getElementById('btnThemeToggle');
+        const moonSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+        const sunSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
         function applyTheme(theme) {
           document.documentElement.setAttribute('data-theme', theme);
-          btn.textContent = theme === 'dark' ? '🌙' : '☀️';
+          btn.innerHTML = theme === 'dark' ? moonSVG : sunSVG;
           btn.title = theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme';
           localStorage.setItem('theme', theme);
         }
