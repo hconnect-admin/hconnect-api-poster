@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
@@ -1742,6 +1742,35 @@
 
     .btn-small.btn-delete:hover {
       background: #dc2626;
+    }
+
+    .btn-icon {
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      line-height: 0;
+    }
+    .btn-icon:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+      border-color: var(--border);
+    }
+    .btn-icon.btn-icon-primary:hover {
+      background: rgba(59, 130, 246, 0.12);
+      color: var(--accent-blue);
+      border-color: rgba(59, 130, 246, 0.3);
+    }
+    .btn-icon.btn-icon-danger:hover {
+      background: rgba(239, 68, 68, 0.12);
+      color: var(--error);
+      border-color: rgba(239, 68, 68, 0.3);
     }
 
     .environment-list {
@@ -4562,9 +4591,9 @@
               <div class="environment-url">${env.baseUrl}</div>
             </div>
             <div class="environment-controls">
-              <button class="btn-small btn-export" data-env-id="${env.id}">Export</button>
-              <button class="btn-small btn-edit" data-env-id="${env.id}">Edit</button>
-              <button class="btn-small btn-delete" data-env-id="${env.id}">Delete</button>
+              <button class="btn-icon btn-export" data-env-id="${env.id}" title="Export Environment"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
+              <button class="btn-icon btn-icon-primary btn-edit" data-env-id="${env.id}" title="Edit Environment"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg></button>
+              <button class="btn-icon btn-icon-danger btn-delete" data-env-id="${env.id}" title="Delete Environment"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
             </div>
           `;
           
@@ -6881,8 +6910,8 @@
         customerHeader.innerHTML = `
           <div class=\"customer-name\">${customer}</div>
           <div class=\"customer-controls\">
-            <button class=\"btn-small btn-edit\" data-customer=\"${customer}\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z\"/><path d=\"m15 5 4 4\"/></svg> Rename</button>
-            <button class=\"btn-small btn-delete\" data-customer=\"${customer}\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"3 6 5 6 21 6\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/></svg> Delete All</button>
+            <button class=\"btn-icon btn-icon-primary btn-edit\" data-customer=\"${customer}\" title=\"Rename Customer\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z\"/><path d=\"m15 5 4 4\"/></svg></button>
+            <button class=\"btn-icon btn-icon-danger btn-delete\" data-customer=\"${customer}\" title=\"Delete All Environments\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"3 6 5 6 21 6\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/></svg></button>
           </div>
         `;
         
@@ -6919,9 +6948,9 @@
               <div class=\"environment-url\">${env.baseUrl}</div>
             </div>
             <div class=\"environment-controls\">
-              <button class=\"btn-small btn-export\" data-env-id=\"${env.id}\" title=\"Export Environment\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"/></svg></button>
-              <button class=\"btn-small btn-edit\" data-env-id=\"${env.id}\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z\"/><path d=\"m15 5 4 4\"/></svg> Edit</button>
-              <button class=\"btn-small btn-delete\" data-env-id=\"${env.id}\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"3 6 5 6 21 6\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/></svg> Delete</button>
+              <button class=\"btn-icon btn-export\" data-env-id=\"${env.id}\" title=\"Export Environment\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"/></svg></button>
+              <button class=\"btn-icon btn-icon-primary btn-edit\" data-env-id=\"${env.id}\" title=\"Edit Environment\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z\"/><path d=\"m15 5 4 4\"/></svg></button>
+              <button class=\"btn-icon btn-icon-danger btn-delete\" data-env-id=\"${env.id}\" title=\"Delete Environment\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"3 6 5 6 21 6\"/><path d=\"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2\"/></svg></button>
             </div>
           `;
           
@@ -6929,7 +6958,7 @@
           // Click on environment item to select it
           envItem.addEventListener('click', async (e) => {
             // Only handle clicks on the item itself, not on buttons
-            if (!e.target.closest('.btn-small')) {
+            if (!e.target.closest('.btn-icon')) {
               await setActiveEnvironment(env.id);
               document.getElementById('environmentModal').classList.remove('active');
               renderCustomerEnvironmentList(); // Re-render to update active state
