@@ -5192,6 +5192,8 @@
       vars['randomInt']         = String(randInt(1, 10000));
       vars['randomFloat']       = (Math.random() * 1000).toFixed(2);
       vars['randomBoolean']     = Math.random() < 0.5 ? 'true' : 'false';
+      vars['randomISODate']     = new Date().toISOString();
+      vars['randomEpoch']       = String(Date.now());
       vars['randomCompany']     = pick(COMPANIES);
       vars['randomTravelAgent'] = pick(TRAVEL_AGENTS);
       vars['randomCountry']     = pick(COUNTRIES);
