@@ -626,6 +626,23 @@
       font-family: 'JetBrains Mono', monospace;
     }
 
+    .btn-save-request {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 6px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-left: auto;
+    }
+
+    .btn-save-request:hover {
+      filter: brightness(1.15);
+    }
+
     .btn-send {
       background: var(--accent-red);
       color: white;
@@ -727,6 +744,8 @@
 
     .tabs {
       display: flex;
+      align-items: center;
+      justify-content: space-between;
       background: var(--bg-secondary);
       border-bottom: 1px solid var(--border-color);
       padding: 0 20px;
@@ -2511,6 +2530,7 @@
               <button class="tab" data-tab="headers">Headers</button>
               <button class="tab" data-tab="body">Body</button>
               <button class="tab" data-tab="auth">Auth</button>
+              <button class="btn-save-request" id="btnSaveRequest2" title="Save request">Save</button>
             </div>
 
             <!-- Params Tab -->
@@ -8490,19 +8510,27 @@
         
         console.log('Saving request:', { collectionId, requestId, name, method, path, parentFolderId });
         
-        const request = {
-          name,
-          method,
-          path,
-          params: [],
-          headers: [],
-          body: { type: 'none', raw: '', formData: [] },
-          folderId: parentFolderId
-        };
-        
-        // Only include id if editing existing request
+        let request;
         if (requestId) {
+          // Editing: preserve existing payload (params, headers, body, etc.)
+          const col = state.collections.find(c => c.id === collectionId);
+          const existing = col ? findRequest(col, requestId) : null;
+          request = existing ? { ...existing.request } : { params: [], headers: [], body: { type: 'none', raw: '', formData: [] } };
           request.id = requestId;
+          request.name = name;
+          request.method = method;
+          request.path = path;
+          request.folderId = parentFolderId;
+        } else {
+          request = {
+            name,
+            method,
+            path,
+            params: [],
+            headers: [],
+            body: { type: 'none', raw: '', formData: [] },
+            folderId: parentFolderId
+          };
         }
         
         const result = await saveRequest(collectionId, request, parentFolderId);
@@ -8719,6 +8747,15 @@
         saveCurrentRequest();
       });
       
+      // Save request button
+      document.getElementById('btnSaveRequest2').addEventListener('click', async () => {
+        if (!state.activeRequest || !state.activeCollection) return;
+        await saveCurrentRequest();
+        const btn = document.getElementById('btnSaveRequest2');
+        btn.textContent = 'Saved ✓';
+        setTimeout(() => { btn.textContent = 'Save'; }, 1500);
+      });
+
       // Send button
       document.getElementById('btnSend').addEventListener('click', sendRequest);
       
