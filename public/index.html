@@ -3186,7 +3186,7 @@
           <span style="font-size:11px;color:var(--text-muted);white-space:nowrap;">Use <code style="background:var(--bg-panel);padding:1px 5px;border-radius:3px;font-size:11px;">{{randomRoomType}}</code> in your requests</span>
         </div>
         <div class="playbook-request-list-header">
-          <span>Requests in collection</span>
+          <span id="playbookScopeLabel">Requests in collection</span>
           <span id="playbookRequestCount" style="color:var(--accent-green);font-size:13px;text-transform:none;letter-spacing:0;font-weight:700;"></span>
           <span style="margin-left:auto;font-size:11px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:400;">
             Click &ldquo;+ Script&rdquo; to add post-response JavaScript per request
@@ -6649,6 +6649,7 @@
       menuHTML += `
         <div class="context-menu-item" data-action="rename">Rename</div>
         <div class="context-menu-item" data-action="duplicate">Duplicate</div>
+        <div class="context-menu-item" data-action="playbook">▶ Run Playbook</div>
         <div class="context-menu-divider"></div>
         <div class="context-menu-item danger" data-action="delete">Delete</div>
       `;
@@ -6677,6 +6678,8 @@
             }
           } else if (action === 'duplicate') {
             duplicateFolder(collectionId, folderId);
+          } else if (action === 'playbook') {
+            openPlaybookModal(collectionId, folderId);
           } else if (action === 'delete') {
             if (confirm('Delete this folder and all its contents?')) {
               deleteFolder(collectionId, folderId);
@@ -7231,6 +7234,7 @@
 
     let playbookState = {
       collectionId: null,
+      folderId: null,
       flatRequests: [],
       isRunning: false,
       changedVars: new Set()
@@ -7263,17 +7267,44 @@
       return result;
     }
 
-    function openPlaybookModal(collectionId) {
+    function flattenFolderRequests(collection, folderId) {
+      const folder = findFolder(collection, folderId);
+      if (!folder) return [];
+      const result = [];
+      function traverse(f, pathSoFar) {
+        const p = pathSoFar ? `${pathSoFar} › ${f.name}` : f.name;
+        if (f.folders && f.folders.length > 0) {
+          f.folders.forEach(sub => traverse(sub, p));
+        }
+        (f.requests || []).forEach(req => result.push({ request: req, folderPath: p }));
+      }
+      traverse(folder, '');
+      return result;
+    }
+
+    function openPlaybookModal(collectionId, folderId = null) {
       const collection = state.collections.find(c => c.id === collectionId);
       if (!collection) return;
 
       playbookState.collectionId = collectionId;
-      playbookState.flatRequests = flattenCollectionRequests(collection);
+      playbookState.folderId = folderId;
       playbookState.isRunning = false;
       playbookState.changedVars = new Set();
 
+      const scopeName = folderId
+        ? (findFolder(collection, folderId)?.name || collection.name)
+        : collection.name;
+
+      playbookState.flatRequests = folderId
+        ? flattenFolderRequests(collection, folderId)
+        : flattenCollectionRequests(collection);
+
+      // Restore persisted room types
+      document.getElementById('pbRoomTypes').value = localStorage.getItem('playbookRoomTypes') || '';
+
       // Reset UI to setup view
-      document.getElementById('playbookCollectionName').textContent = collection.name;
+      document.getElementById('playbookCollectionName').textContent = scopeName;
+      document.getElementById('playbookScopeLabel').textContent = folderId ? 'Requests in folder' : 'Requests in collection';
       document.getElementById('playbookStatusBadge').className = 'playbook-status-badge idle';
       document.getElementById('playbookStatusBadge').textContent = 'Ready';
       document.getElementById('playbookSetupView').style.display = 'flex';
@@ -8817,6 +8848,10 @@
 
       document.getElementById('btnRunPlaybook').addEventListener('click', () => {
         runPlaybook();
+      });
+
+      document.getElementById('pbRoomTypes').addEventListener('input', function () {
+        localStorage.setItem('playbookRoomTypes', this.value);
       });
 
       document.getElementById('btnBackToSetup').addEventListener('click', () => {
